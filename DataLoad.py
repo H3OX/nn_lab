@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+import os
+import time
+
+import joblib
+import librosa as lr
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
+os.getcwd()
+
+emotions = {
+    '01': 'neutral',
+    '02': 'calm',
+    '03': 'happy',
+    '04': 'sad',
+    '05': 'angry',
+    '06': 'fearful',
+    '07': 'disgust',
+    '08': 'surprised'
+}
+
+start = time.time()
+
+data = []
+
+path = 'Audio_Speech_Actors_01-24'
+
+print('Writing files...')
+for subdir, dirs, files in os.walk(path):
+
+    for file in files:
+        if file == '.DS_Store':
+            pass
+        else:
+            target = emotions[str(file.split('-')[2])]
+            y, sr = lr.load(os.path.join(subdir, file), res_type='kaiser_fast')
+            mfccs = np.mean(lr.feature.mfcc(y=y, sr=sr, n_mfcc=30).T, axis=0)
+            sample = mfccs, target
+            data.append(sample)
+
+end = time.time()
+print(f'Writing finished in {end - start} seconds')
+
+encoder = LabelEncoder()
+X, y = zip(*data)
+
+dataset = pd.DataFrame(X, encoder.fit_transform(y))
+
+dataset = dataset.reset_index()
+dataset.rename(columns={
+    'index': 'target'
+}, inplace=True)
+joblib.dump(dataset, 'data.pkl')
+
+dataset.head()
+
+# Dataset ready
+
+# model = nn.Sequential(
+#   nn.Linear(30, 60),
+#  nn.ReLU(),
+# nn.Linear(60, 120),
+# nn.ReLU(),
+# nn.Linear(120, 8),
+# nn.Softmax()
+# )
+# loss = nn.CrossEntropyLoss()
+# optimizer = optim.Adam(model.parameters(), lr=0.00001)
+
+# device = torch.device('cuda:0')
+# X_train = torch.tensor(X_train).float().to(device)
+# X_test = torch.tensor(X_test).float().to(device)
+# y_train = torch.tensor(y_train).to(device)
+# y_test = torch.tensor(y_test).to(device)
