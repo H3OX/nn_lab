@@ -32,5 +32,5 @@ model.add(Dense(8, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
 
-training = model.fit(X_train, y_train, epochs=50, validation_data=(X_test, y_test))
+training = model.fit(X_train, y_train, epochs=150, validation_data=(X_test, y_test))
 print(training.history)
