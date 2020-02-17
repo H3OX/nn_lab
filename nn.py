@@ -17,7 +17,7 @@ print(X_train.shape)
 # Model definition
 adam = Adam(learning_rate=0.0005)
 model = Sequential()
-model.add(Conv1D(filters=128, kernel_size=3, input_shape=(30, 1), activation='relu'))
+model.add(Conv1D(filters=256, kernel_size=3, input_shape=(30, 1), activation='relu'))
 model.add(BatchNormalization())
 model.add(Conv1D(filters=128, kernel_size=3, activation='relu'))
 model.add(MaxPooling1D(pool_size=2))
@@ -28,17 +28,16 @@ model.add(Conv1D(filters=64, kernel_size=3, activation='relu'))
 model.add(Conv1D(filters=32, kernel_size=3, activation='relu'))
 
 model.add(MaxPooling1D(pool_size=2))
-model.add(Dropout(0.2))
+model.add(Dropout(rate=0.2))
 model.add(Flatten())
 
-model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(rate=0.2))
 model.add(Dense(8, activation='softmax'))
 
 model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
 
-training = model.fit(X_train, y_train, epochs=250, validation_data=(X_test, y_test))
+training = model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test))
 val_loss = training.history['val_loss']
 loss = training.history['loss']
 acc = training.history['accuracy']
