@@ -46,15 +46,24 @@ print(f'Writing finished in {end - start} seconds')
 encoder = LabelEncoder()
 X, y = zip(*data)
 
-dataset = pd.DataFrame(X, encoder.fit_transform(y))
+dataset = pd.DataFrame(X, y)
 
 dataset = dataset.reset_index()
 dataset.rename(columns={
     'index': 'target'
 }, inplace=True)
-joblib.dump(dataset, 'data.pkl')
+dataset = dataset[dataset['target'] != 'calm']
+dataset['target'].replace({
+    'angry': 0,
+    'disgust': 1,
+    'fearful': 2,
+    'happy': 3,
+    'neutral': 4,
+    'sad': 5,
+    'surprised': 6
+}, inplace=True)
+#joblib.dump(dataset, 'ravdess_new.pkl')
 
-dataset.head()
 
 # Dataset ready
 

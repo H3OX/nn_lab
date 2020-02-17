@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
-dataset = joblib.load('data.pkl')
+dataset = joblib.load('data/data.pkl')
 X = np.expand_dims(dataset.iloc[:, 1:].values, axis=2)
 y = to_categorical(dataset.iloc[:, 0].values)
 
