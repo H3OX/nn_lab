@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
-dataset = joblib.load('data/data.pkl')
+dataset = joblib.load('./data/tess_rvds_savee.pkl')
 X = np.expand_dims(dataset.iloc[:, 1:].values, axis=2)
 y = to_categorical(dataset.iloc[:, 0].values)
 
@@ -32,12 +32,12 @@ model.add(Dropout(rate=0.2))
 model.add(Flatten())
 
 model.add(Dropout(rate=0.2))
-model.add(Dense(8, activation='softmax'))
+model.add(Dense(7, activation='softmax'))
 
 model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
 
-training = model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test))
+training = model.fit(X_train, y_train, epochs=15, validation_data=(X_test, y_test))
 val_loss = training.history['val_loss']
 loss = training.history['loss']
 acc = training.history['accuracy']
