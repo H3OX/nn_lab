@@ -37,28 +37,9 @@ model.add(Dense(7, activation='softmax'))
 model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy', 'mae'])
 print(model.summary())
 
-# training = model.fit(X_train, y_train, epochs=300, validation_data=(X_test, y_test))
-# val_loss = training.history['val_loss']
-# loss = training.history['loss']
-# acc = training.history['accuracy']
-# val_acc = training.history['val_accuracy']
-# mae = training.history['mae']
-#
-# plt.figure()
-# plt.plot(val_acc, c='g', label='Val acc')
-# plt.plot(acc, c='r', label='acc')
-# plt.title('Val-acc vs acc')
-# plt.legend(loc='lower right')
-# plt.show()
-#
-# plt.figure()
-# plt.plot(val_loss, c='g', label='Val loss')
-# plt.plot(loss, c='r', label='loss')
-# plt.title('Val-loss vs loss')
-# plt.legend(loc='upper right')
-# plt.show()
-#
-# plt.figure()
-# plt.plot(mae, c='b')
-# plt.title('Mean absolute error')
-# plt.show()
+training = model.fit(X_train, y_train, epochs=300, validation_data=(X_test, y_test))
+val_loss = training.history['val_loss']
+loss = training.history['loss']
+acc = training.history['accuracy']
+val_acc = training.history['val_accuracy']
+mae = training.history['mae']
