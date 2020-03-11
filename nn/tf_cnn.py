@@ -35,7 +35,7 @@ outputs = k.layers.Softmax()(x)
 
 
 model = Model(inputs, outputs, name='cnn_model')
-model.compile(optimizer=Adam(lr=0.005), loss='categorical_crossentropy', metrics=['accuracy', 'mae'])
+model.compile(optimizer=Adam(lr=0.0005), loss='categorical_crossentropy', metrics=['accuracy', 'mae'])
 
 log_dir = "logs\\fit\\" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = k.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
