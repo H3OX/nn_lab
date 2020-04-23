@@ -6,9 +6,7 @@ import joblib
 import librosa as lr
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 
-os.getcwd()
 
 emotions = {
     '01': 'neutral',
@@ -25,7 +23,7 @@ start = time.time()
 
 data = []
 
-path = 'Audio_Speech_Actors_01-24'
+path = '../data/RAVDESS'
 
 print('Writing files...')
 for subdir, dirs, files in os.walk(path):
@@ -43,7 +41,6 @@ for subdir, dirs, files in os.walk(path):
 end = time.time()
 print(f'Writing finished in {end - start} seconds')
 
-encoder = LabelEncoder()
 X, y = zip(*data)
 
 dataset = pd.DataFrame(X, y)
@@ -62,7 +59,8 @@ dataset['target'].replace({
     'sad': 5,
     'surprised': 6
 }, inplace=True)
-#joblib.dump(dataset, 'ravdess_new.pkl')
+
+joblib.dump(dataset, '../data/r.pkl')
 
 
 # Dataset ready

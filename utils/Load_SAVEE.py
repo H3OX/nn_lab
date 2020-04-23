@@ -5,7 +5,7 @@ import librosa as lr
 import os
 import time
 
-path = '../ALL'
+path = '../data/ALL'
 
 data_savee = []
 
@@ -50,3 +50,4 @@ ds_savee['target'].replace({
     'sad': 5,
     'surprised': 6
 }, inplace=True)
+joblib.dump(ds_savee, '../data/s.pkl')

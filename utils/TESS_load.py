@@ -6,7 +6,7 @@ import os
 import time
 from sklearn.preprocessing import LabelEncoder
 
-path = 'TESS'
+path = '../data/TESS'
 encoder = LabelEncoder()
 data_tess = []
 
@@ -44,4 +44,4 @@ dataset_tess.replace({
     'surprised': 6
 }, inplace=True)
 
-
+joblib.dump(dataset_tess, '../data/t.pkl')
